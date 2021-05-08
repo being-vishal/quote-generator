@@ -63,7 +63,7 @@ async function getQuote() {
 function tweetQuote() {
     const quote = quoteText.innerText;
     const author = authorText.innerText;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${quote} - ${author}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=Quote of the day :-   ${quote}  ${author}`;
     window.open(twitterUrl, '_blank');
 }
 
@@ -75,3 +75,26 @@ twitterBtn.addEventListener('click', tweetQuote);
 
 // On load
 getQuote();
+
+
+
+
+//                     Dark Mode       
+
+const toggleSwitch = document.querySelector('input[type = "checkbox"]');
+const toggleIcon =  document.getElementById('toggle-icon');
+//Switch Theme
+function switchTheme(event){
+   if(event.target.checked){
+       document.documentElement.setAttribute('data-theme' , 'dark');
+       toggleIcon.children[0].classList.replace('fa-sun' , 'fa-moon');
+   }else{
+    document.documentElement.setAttribute('data-theme' , 'light');
+    toggleIcon.children[0].classList.replace('fa-moon','fa-sun');
+   }
+  
+}
+//Event listener
+toggleSwitch.addEventListener('change' , switchTheme);
+
+
