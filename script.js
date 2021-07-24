@@ -1,4 +1,4 @@
-
+// jshint esversion: 8
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
@@ -26,27 +26,27 @@ function complete() {
 // API
 async function getQuote() {
     loading();
-    const proxyUrl = 'https://young-peak-06615.herokuapp.com/'
-    const apiUrl = 'https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
+    
+    const apiUrl = 'https://api.quotable.io/random';
 
     try {
-        const response = await fetch(proxyUrl + apiUrl);
+        const response = await fetch(apiUrl);
         const data = await response.json();
 
-        if (data.quoteAuthor === '') {
+        if (data.author === '') {
             authorText.innerText = 'Unknown';
         } else {
-            authorText.innerText = '- ' + data.quoteAuthor;
+            authorText.innerText = '- ' + data.author;
         }
 
 
         //Reduce font size for long quotes
-        if (data.quoteText.length > 120) {
+        if (data.length > 120) {
             quoteText.classList.add('long-quote');
         } else {
             quoteText.classList.remove('long-quote');
         }
-        quoteText.innerText = data.quoteText;
+        quoteText.innerText = data.content;
 
 
         //Stop loader and show quote
@@ -63,7 +63,7 @@ async function getQuote() {
 function tweetQuote() {
     const quote = quoteText.innerText;
     const author = authorText.innerText;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=Quote of the day :-   ${quote}  ${author}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=Quote of the day - \  ${quote}  ${author}`;
     window.open(twitterUrl, '_blank');
 }
 
